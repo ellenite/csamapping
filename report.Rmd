@@ -1,0 +1,98 @@
+---
+title: "CSA Initiative Fact Sheet"
+output: pdf_document
+params:
+  title: NA
+  type: NA
+  keyword: NA
+  country: NA
+  location: NA
+  period: NA
+  status: NA
+  lead_name: NA
+  lead_type: NA
+  partners: NA
+  so: NA
+  relevance_productivity: NA
+  relevance_resilience: NA
+  relevance_greenhouse: NA
+  activities: NA
+  indicator1m: NA
+  indicator1w: NA
+  indicator2: NA
+  hypotheses: NA
+  source: NA
+  knowledge: NA
+  budget: NA
+  contact_name: NA
+  contact_email: NA
+  contact_url: NA
+  comments: NA
+  
+---
+
+# \textcolor{blue}{`r params$title`}
+
+### Type of initiative
+*\textcolor{gray}{`r params$type`}*
+
+### Keywords
+*\textcolor{gray}{`r params$keyword`}*
+
+### Geographic Coverage
+*\textcolor{gray}{`r params$country`}*
+
+### Specific Location
+*\textcolor{gray}{`r params$location`}*
+
+### Period of implementation
+*\textcolor{gray}{`r params$period`}*
+
+### Status of the initiative
+*\textcolor{gray}{`r params$status`}*
+
+### Lead Organisation Name
+*\textcolor{gray}{`r params$lead_name`}*
+
+### Lead Organisation Type
+*\textcolor{gray}{`r params$lead_type`}*
+
+### Partners
+*\textcolor{gray}{`r params$partners`}*
+
+### Specific Objective
+*\textcolor{gray}{`r params$so`}*
+
+### CSA relevance
+* **Enhance opportunities to increase agricultural productivity**: *\textcolor{gray}{`r params$relevance_productivity`}*
+* **Improve resilience to climate change**: *\textcolor{gray}{`r params$relevance_resilience`}*
+* **Contribute to long-term reductions in dangerous greenhouse gas emissions**: *\textcolor{gray}{`r params$relevance_greenhouse`}*
+
+### Main activities
+*\textcolor{gray}{`r params$activities`}*
+
+### Outcome indicators of the initiative
+* **Number of smallholders practicing CSA approaches (gender disaggregated)** 
+    * Men: *\textcolor{gray}{`r params$indicator1m`}*
+    * Women: *\textcolor{gray}{`r params$indicator1w`}*
+* **Pastoral and Agricultural systems in which CSA practices have been adopted (in Hectares)**: *\textcolor{gray}{`r params$indicator2`}*
+
+### Hypotheses for scaling out
+*\textcolor{gray}{`r params$hypotheses`}*
+
+### Sources of information
+*\textcolor{gray}{`r params$source`}*
+
+### Knowledge sharing and communication products
+*\textcolor{gray}{`r params$knowledge`}*
+
+### Budget allocation (EUR)
+*\textcolor{gray}{`r params$budget`}*
+
+### Contact
+* **Contact Name**: *\textcolor{gray}{`r params$contact_name`}*
+* **Contact Email**: *\textcolor{gray}{`r params$contact_email`}*
+* **Contact URL**: *\textcolor{gray}{`r params$contact_url`}*
+
+### Comments
+*\textcolor{gray}{`r params$comments`}*
