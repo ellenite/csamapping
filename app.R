@@ -22,7 +22,7 @@ library(shinyjs)
 ui <- dashboardPage(skin = "green",
 
     dashboardHeader(
-        title = "Mapping of Climate Change Initiatives in West and Central  Africa", titleWidth = 600
+        title = "Mapping of Climate Change Initiatives in West and Central  Africa", titleWidth = 700
     ),
     dashboardSidebar(
         sidebarMenu(
@@ -69,7 +69,7 @@ ui <- dashboardPage(skin = "green",
                     , fluidRow(
                         box(width = 12, status = "info", title = "List of initiative(s) matching the criterias"
                             , column(width = 2
-                                     , actionBttn("view_factsheet", label = "View Factsheet"
+                                     , actionBttn("view_factsheet", label = "View details"
                                                   , icon = icon("file-invoice"), block=TRUE)
                             ) 
                             , br()
@@ -258,11 +258,11 @@ server <- function(input, output) {
     else 
     {
       showModal(
-        modalDialog(title = "Initiative Facksheet", size = "l"
+        modalDialog(title = "Initiative Details", size = "l"
                     , footer = fluidPage(
-                      column(width = 12
-                               , actionBttn("dismiss", icon = icon("times"), color = "danger")
-                      )
+                      column(width = 4, )
+                      , column(width = 4, downloadButton("factsheet", "Generate factsheet"))
+                      , column(width = 4, actionBttn("dismiss", icon = icon("times"), color = "danger"))
                     )
                     , fluidRow(
                       column(width = 12
@@ -342,12 +342,64 @@ server <- function(input, output) {
       )
     }
     
+    initiative_file <- paste("FactSheet-", data_fs[row_selected, 1], ".pdf", sep = "")
+    # Generate fact sheet -----
+    output$factsheet <- downloadHandler(
+      
+      filename = initiative_file,
+      content = function(file) {
+        # Copy the report file to a temporary directory before processing it, in
+        # case we don't have write permissions to the current working dir (which
+        # can happen when deployed).
+        tempReport <- file.path(tempdir(), "report.Rmd")
+        file.copy("report.Rmd", tempReport, overwrite = TRUE)
+        
+        # Set up parameters to pass to Rmd document
+        params <- list(title = input$title
+                       , type = input$type
+                       , keyword = input$keyword
+                       , country = input$country
+                       , location = input$location
+                       , period = input$period
+                       , status = input$status
+                       , lead_name = input$lead_name
+                       , lead_type = input$lead_type
+                       , partners = input$partners
+                       , so = input$so
+                       , relevance_productivity = input$relevance_productivity
+                       , relevance_resilience = input$relevance_resilience
+                       , relevance_greenhouse = input$relevance_greenhouse
+                       , activities = input$activities
+                       , indicator1m = input$indicator1m
+                       , indicator1w = input$indicator1w
+                       , indicator2 = input$indicator2
+                       , hypotheses = input$hypotheses
+                       , source = input$source
+                       , knowledge = input$knowledge
+                       , budget = input$budget
+                       , contact_name = input$contact_name
+                       , contact_email = input$contact_email
+                       , contact_url = input$contact_url
+                       , comments = input$comments
+        )
+        
+        # Knit the document, passing in the `params` list, and eval it in a
+        # child of the global environment (this isolates the code in the document
+        # from the code in this app).
+        rmarkdown::render(tempReport, output_file = file,
+                          params = params,
+                          envir = new.env(parent = globalenv())
+        )
+      }
+    )
     
   })
   
   observeEvent(input$dismiss, {
     removeModal()
   })
+  
+ 
   
     
 }
